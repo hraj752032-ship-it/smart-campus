@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Campus | Student Management Platform</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- ================= LOGIN SCREEN ================= -->
+
+    <div id="loginScreen" class="login-screen">
+
+        <div class="login-box">
+
+            <div class="login-logo">🎓</div>
+
+            <h1>Smart Campus</h1>
+
+            <p>Student Intelligence & Management Platform</p>
+
+            <form id="loginForm">
+
+                <label>Student Name</label>
+                <input
+                    type="text"
+                    id="loginName"
+                    placeholder="Enter your name"
+                    value="Harsh"
+                    required
+                >
+
+                <label>Student ID</label>
+                <input
+                    type="text"
+                    id="loginId"
+                    placeholder="Enter student ID"
+                    value="SC2026"
+                    required
+                >
+
+                <button type="submit" class="login-button">
+                    Login to Dashboard
+                </button>
+
+            </form>
+
+            <small>Demo authentication • Front-end project</small>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= APPLICATION ================= -->
+
+    <div id="app" class="app hidden">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">🎓</div>
+
+                <div>
+                    <h2>Smart Campus</h2>
+                    <small>Student Portal</small>
+                </div>
+            </div>
+
+
+            <nav class="sidebar-nav">
+
+                <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                    🏠 Dashboard
+                </a>
+
+                <a href="#profile" class="nav-link" data-section="profile">
+                    👤 Profile
+                </a>
+
+                <a href="#attendance" class="nav-link" data-section="attendance">
+                    📊 Attendance
+                </a>
+
+                <a href="#academics" class="nav-link" data-section="academics">
+                    📚 Academics
+                </a>
+
+                <a href="#assignments" class="nav-link" data-section="assignments">
+                    📝 Assignments
+                </a>
+
+                <a href="#timetable" class="nav-link" data-section="timetable">
+                    🗓️ Timetable
+                </a>
+
+                <a href="#notices" class="nav-link" data-section="notices">
+                    📢 Notices
+                </a>
+
+                <a href="#events" class="nav-link" data-section="events">
+                    🎉 Events
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <button id="themeToggle" class="sidebar-button">
+                    🌙 Dark Mode
+                </button>
+
+                <button id="logoutButton" class="sidebar-button logout">
+                    🚪 Logout
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main-content">
+
+            <!-- TOP BAR -->
+
+            <header class="topbar">
+
+                <div class="mobile-brand">
+                    <strong>Smart Campus</strong>
+                </div>
+
+                <div class="search-container">
+
+                    <span>🔍</span>
+
+                    <input
+                        type="text"
+                        id="globalSearch"
+                        placeholder="Search assignments, notices, events..."
+                    >
+
+                </div>
+
+
+                <div class="topbar-right">
+
+                    <div class="notification-icon">
+                        🔔
+                        <span>3</span>
+                    </div>
+
+                    <div class="user-mini">
+
+                        <div class="avatar">
+                            H
+                        </div>
+
+                        <div>
+                            <strong id="topUserName">Harsh</strong>
+                            <small>Student</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <section id="dashboard" class="page-section active-section">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Welcome back, <span id="dashboardName">Harsh</span> 👋</h1>
+                        <p id="dashboardCourse">
+                            Here's what's happening on your campus.
+                        </p>
+                    </div>
+
+                    <div class="date-box">
+                        📅 <span id="currentDate"></span>
+                    </div>
+
+                </div>
+
+
+                <!-- STAT CARDS -->
+
+                <div class="stats-grid">
+
+                    <div class="stat-card blue">
+
+                        <div class="stat-icon">📊</div>
+
+                        <div>
+                            <span>Attendance</span>
+                            <h2 id="dashboardAttendance">87%</h2>
+                            <small>Good standing</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card purple">
+
+                        <div class="stat-icon">🎓</div>
+
+                        <div>
+                            <span>Current CGPA</span>
+                            <h2 id="dashboardCgpa">8.4</h2>
+                            <small>Semester 5</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card orange">
+
+                        <div class="stat-icon">📝</div>
+
+                        <div>
+                            <span>Pending Tasks</span>
+                            <h2 id="dashboardAssignments">4</h2>
+                            <small>Assignments</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card green">
+
+                        <div class="stat-icon">🎉</div>
+
+                        <div>
+                            <span>Upcoming Events</span>
+                            <h2 id="dashboardEvents">3</h2>
+                            <small>This month</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DASHBOARD GRID -->
+
+                <div class="dashboard-grid">
+
+                    <!-- ATTENDANCE -->
+
+                    <div class="card">
+
+                        <div class="card-header">
+
+                            <div>
+                                <h2>Attendance Overview</h2>
+                                <p>Current semester</p>
+                            </div>
+
+                            <span class="badge success">Good</span>
+
+                        </div>
+
+                        <div class="attendance-large">
+
+                            <div class="attendance-circle">
+                                <strong id="attendanceCircleValue">87%</strong>
+                                <span>Overall</span>
+                            </div>
+
+                            <div class="attendance-details">
+
+                                <div>
+                                    <span>Classes Attended</span>
+                                    <strong>87</strong>
+                                </div>
+
+                                <div>
+                                    <span>Total Classes</span>
+                                    <strong>100</strong>
+                                </div>
+
+                                <div>
+                                    <span>Classes Needed</span>
+                                    <strong>7</strong>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PERFORMANCE -->
+
+                    <div class="card">
+
+                        <div class="card-header">
+
+                            <div>
+                                <h2>Academic Performance</h2>
+                                <p>Semester-wise CGPA</p>
+                            </div>
+
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+
+                    </div>
+
+
+                    <!-- ASSIGNMENTS -->
+
+                    <div class="card">
+
+                        <div class="card-header">
+
+                            <div>
+                                <h2>Upcoming Assignments</h2>
+                                <p>Don't miss your deadlines</p>
+                            </div>
+
+                            <button class="text-button" data-section="assignments">
+                                View All
+                            </button>
+
+                        </div>
+
+                        <div id="dashboardAssignmentsList"></div>
+
+                    </div>
+
+
+                    <!-- NOTICES -->
+
+                    <div class="card">
+
+                        <div class="card-header">
+
+                            <div>
+                                <h2>Latest Notices</h2>
+                                <p>College announcements</p>
+                            </div>
+
+                            <button class="text-button" data-section="notices">
+                                View All
+                            </button>
+
+                        </div>
+
+                        <div id="dashboardNoticesList"></div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= PROFILE ================= -->
+
+            <section id="profile" class="page-section">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Student Profile</h1>
+                        <p>View your personal and academic information.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="profile-grid">
+
+                    <div class="card profile-card">
+
+                        <div class="profile-avatar" id="profileAvatar">
+                            H
+                        </div>
+
+                        <h2 id="profileName">Harsh</h2>
+
+                        <p id="profileCourse">B.Tech Computer Science</p>
+
+                        <span class="badge success">Active Student</span>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <h2 class="section-title">Personal Information</h2>
+
+                        <div class="info-grid">
+
+                            <div>
+                                <label>Student ID</label>
+                                <strong id="profileId">SC2026</strong>
+                            </div>
+
+                            <div>
+                                <label>Name</label>
+                                <strong id="profileNameInfo">Harsh</strong>
+                            </div>
+
+                            <div>
+                                <label>Course</label>
+                                <strong>B.Tech Computer Science</strong>
+                            </div>
+
+                            <div>
+                                <label>Semester</label>
+                                <strong>5th Semester</strong>
+                            </div>
+
+                            <div>
+                                <label>Email</label>
+                                <strong>harsh@student.edu</strong>
+                            </div>
+
+                            <div>
+                                <label>Department</label>
+                                <strong>Computer Science</strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ATTENDANCE ================= -->
+
+            <section id="attendance" class="page-section">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Attendance Tracking</h1>
+                        <p>Monitor your attendance subject by subject.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="attendance-summary">
+
+                    <div class="summary-card">
+                        <span>Overall Attendance</span>
+                        <strong>87%</strong>
+                    </div>
+
+                    <div class="summary-card">
+                        <span>Total Classes</span>
+                        <strong>100</strong>
+                    </div>
+
+                    <div class="summary-card">
+                        <span>Present</span>
+                        <strong>87</strong>
+                    </div>
+
+                    <div class="summary-card">
+                        <span>Absent</span>
+                        <strong>13</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <h2>Subject-wise Attendance</h2>
+                    </div>
+
+                    <div id="attendanceTable"></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ACADEMICS ================= -->
+
+            <section id="academics" class="page-section">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Academic Performance</h1>
+                        <p>Track your semester performance and grades.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="academic-grid">
+
+                    <div class="card">
+
+                        <div class="card-header">
+                            <h2>CGPA Progress</h2>
+                        </div>
+
+                        <div class="large-chart">
+                            <canvas id="cgpaChart"></canvas>
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-header">
+                            <h2>Current Semester</h2>
+                        </div>
+
+                        <div class="cgpa-display">
+                            <span>Current CGPA</span>
+                            <strong>8.4</strong>
+                            <small>Excellent performance</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <h2>Subject Performance</h2>
+                    </div>
+
+                    <div id="marksTable"></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ASSIGNMENTS ================= -->
+
+            <section id="assignments" class="page-section">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Assignment Manager</h1>
+                        <p>Track and manage your academic assignments.</p>
+                    </div>
+
+                    <button class="primary-button" id="addAssignmentButton">
+                        + Add Assignment
+                    </button>
+
+                </div>
+
+
+                <div class="filter-bar">
+
+                    <input
+                        type="text"
+                        id="assignmentSearch"
+                        placeholder="Search assignments..."
+                    >
+
+                    <select id="assignmentFilter">
+
+                        <option value="all">All Assignments</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+
+                    </select>
+
+                </div>
+
+
+                <div id="assignmentPageList" class="assignment-grid"></div>
+
+            </section>
+
+
+            <!-- ================= TIMETABLE ================= -->
+
+            <section id="timetable" class="page-section">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Weekly Timetable</h1>
+                        <p>Your weekly class schedule.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="timetable-grid" id="timetableGrid"></div>
+
+            </section>
+
+
+            <!-- ================= NOTICES ================= -->
+
+            <section id="notices" class="page-section">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>College Notices</h1>
+                        <p>Important announcements from your college.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="filter-bar">
+
+                    <input
+                        type="text"
+                        id="noticeSearch"
+                        placeholder="Search notices..."
+                    >
+
+                </div>
+
+
+                <div id="noticePageList" class="notice-grid"></div>
+
+            </section>
+
+
+            <!-- ================= EVENTS ================= -->
+
+            <section id="events" class="page-section">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>College Events</h1>
+                        <p>Discover upcoming campus activities.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="filter-bar">
+
+                    <input
+                        type="text"
+                        id="eventSearch"
+                        placeholder="Search events..."
+                    >
+
+                </div>
+
+
+                <div id="eventPageList" class="event-grid"></div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+    <!-- ================= ASSIGNMENT MODAL ================= -->
+
+    <div id="assignmentModal" class="modal hidden">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <h2>Add Assignment</h2>
+
+                <button id="closeModal">×</button>
+
+            </div>
+
+
+            <form id="assignmentForm">
+
+                <label>Subject</label>
+
+                <input
+                    type="text"
+                    id="newSubject"
+                    placeholder="e.g. Web Development"
+                    required
+                >
+
+
+                <label>Assignment Title</label>
+
+                <input
+                    type="text"
+                    id="newTitle"
+                    placeholder="e.g. Build portfolio"
+                    required
+                >
+
+
+                <label>Due Date</label>
+
+                <input
+                    type="date"
+                    id="newDueDate"
+                    required
+                >
+
+
+                <button type="submit" class="primary-button">
+                    Add Assignment
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
